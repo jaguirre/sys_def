@@ -1,0 +1,227 @@
+\documentclass[11pt]{article}
+\usepackage{natbib}
+\usepackage{float}
+\usepackage[textwidth=6.5in,textheight=8.5in]{geometry}
+\usepackage{changepage}
+\usepackage[pdftex]{graphicx}     % could insert ``draft'' between []
+\usepackage{amsmath}
+\usepackage{amssymb}
+\pagestyle{empty}
+\setlength{\oddsidemargin}{0pt}
+%\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{0pt}
+\setlength{\topmargin}{-0.25in}
+%\setlength{\textheight}{8.5in}
+\extrafloats{120}
+%%%%%%%%%%%
+\newcommand\aj{AJ}%
+          % Astronomical Journal
+\newcommand\actaa{\ref@jnl{Acta Astron.}}%
+  % Acta Astronomica
+\newcommand\araa{\ref@jnl{ARA\&A}}%
+          % Annual Review of Astron and Astrophys
+\newcommand\apj{ApJ}%
+          % Astrophysical Journal
+\newcommand\apjl{\ref@jnl{ApJ}}%
+          % Astrophysical Journal, Letters
+\newcommand\apjs{\ref@jnl{ApJS}}%
+          % Astrophysical Journal, Supplement
+\newcommand\ao{\ref@jnl{Appl.~Opt.}}%
+          % Applied Optics
+\newcommand\apss{\ref@jnl{Ap\&SS}}%
+          % Astrophysics and Space Science
+\newcommand\aap{\ref@jnl{A\&A}}%
+          % Astronomy and Astrophysics
+\newcommand\aapr{\ref@jnl{A\&A~Rev.}}%
+          % Astronomy and Astrophysics Reviews
+\newcommand\aaps{\ref@jnl{A\&AS}}%
+          % Astronomy and Astrophysics, Supplement
+\newcommand\icarus{\ref@jnl{Icarus}}%
+  % Icarus
+\newcommand\mnras{\ref@jnl{MNRAS}}%
+          % Monthly Notices of the RAS
+\newcommand\prc{\ref@jnl{Phys.~Rev.~C}}%
+          % Physical Review C
+\newcommand\prd{\ref@jnl{Phys.~Rev.~D}}%
+          % Physical Review D
+\newcommand\pre{\ref@jnl{Phys.~Rev.~E}}%
+          % Physical Review E
+\newcommand\prl{\ref@jnl{Phys.~Rev.~Lett.}}%
+          % Physical Review Letters
+\newcommand\pasa{\ref@jnl{PASA}}%
+  % Publications of the Astron. Soc. of Australia
+\newcommand\pasp{\ref@jnl{PASP}}%
+          % Publications of the ASP
+
+\newcommand{\kvec}{{\bf k}}
+\newcommand{\bvec}{{\bf b}}
+\newcommand{\shat}{{\hat s}}
+\newcommand{\kpr}{{k_\perp}}
+\newcommand{\kvpr}{{\kvec_\perp}}
+\newcommand{\kpl}{{k_\parallel}}
+\newcommand{\AI}{{\langle\tilde A*\tilde I\rangle}}
+\newcommand{\AItau}{{\AI(\tau)}}
+\newcommand{\hMpci}{{h~{\rm Mpc}^{-1}}}
+\newcommand{\inch}{$^{\prime\prime}$}
+\newcommand{\foot}{$^{\prime}$}
+\renewcommand{\deg}{^\circ}
+\newcommand{\integral}{\int\limits}
+
+
+\begin{document}
+\title{Some HERA System Definitions: I}
+\author{David DeBoer}
+\maketitle
+
+\begin{center}
+{\bf Abstract}
+\end{center}
+
+\small
+\begin{adjustwidth}{1in}{1in}
+This note defines some system characterization parameters in the context of HERA observations.  It mostly adheres to IEEE definitions.  The defined parameters are in bold and are: antenna normalized power pattern, directive gain, gain pattern, gain, antenna efficiency, effective area, aperture efficiency, beam solid angle, antenna temperature, receiver temperature, system temperature, sensitivity and SEFD.
+\end{adjustwidth}
+
+\section{Antenna Properties}
+The {\bf Antenna Normalized Power Pattern}, $P(\theta,\phi)$, is described by the ratio of the power received from a point source at infinity as a function of pointing direction to its maximum value.  We define this maximum pointing direction to occur at $\theta = \phi = 0$ and call it ``boresight''.  If we measure power in arbitrary units as a function of pointing as $W(\theta,\phi)$, then
+\begin{equation}
+P(\theta,\phi) = \frac{W(\theta,\phi)}{W(0,0)}
+\end{equation}
+This is unitless and usually plotted in decibels as $P$[dB] = 10log$_{10}(P)$.
+
+The {\bf Directive Gain} of an antenna, $D(\theta,\phi)$, is another ``pattern'' but normalized to the power received by a (theoretically impossible) isotropic antenna.  It may be expressed as:
+\begin{equation}
+D(\theta,\phi) = \frac{4\pi P(\theta,\phi)}{\int\int P(\theta,\phi)d\Omega}
+\end{equation} 
+This is also dimensionless, but is also usually plotted as ''decibels relative to isotropic'' $D$[dBi] = 10log$_{10}(D)$.
+
+The {\bf Directivity} of an antenna, also $D$, is the directive gain value at its maximum value, which we've defined as boresight:  $D = D(0,0)$.
+
+The {\bf Gain Pattern} of an antenna, $G(\theta,\phi)$, is the directive gain reduced by any other losses not caught in integrating the beam pattern.  This comes from things like ohmic losses and leakage, which we lump into an efficiency parameter we'll denote $\eta_R$
+\begin{equation}
+G(\theta,\phi) = \eta_R D(\theta,\phi)
+\end{equation}
+Since the input reference point has been specified at the antenna terminals, things like mismatch are ignored here.  They are present in the real system and must be included in the full system analysis.
+
+The {\bf Gain} of an antenna, also $G$, is the value of the gain pattern at boresight:  $G = \eta_R D$.
+
+Note that typically $\eta_R \approx 1$, so that $D$ and $G$ are generally quite close to each other in value and we often and confusingly use them interchangeably, but if you care about the details don't forget about $\eta_R$ (and don't forget whether you mean at boresight, or at some other angle).
+
+The {\bf Antenna Efficiency}, $\eta$, is the ratio of the  {\bf Effective Area} of an antenna, $A_e$, to the geometric area of the antenna, $A_g$ (this serves to circuitously define both $\eta$ and $A_e$).  So,
+\begin{equation}
+A_e = \eta A_g
+\end{equation}
+Note that we may define an {\bf Aperture Efficiency}, $\eta_A$, as
+\begin{equation}
+\eta_A = \frac{4\lambda^2}{\pi d^2\Omega_A}
+\end{equation}
+where $d$ is the diameter and $\Omega_A$ is the {\bf Beam Solid Angle} defined as
+\begin{equation}
+\Omega_A = \int \int P(\theta,\phi)d\Omega
+\end{equation}
+Then we find that $\eta = \eta_A \eta_R$.
+
+Finally, we note that we can relate effective area to gain by
+\begin{equation}
+G = \eta_R D = \eta_R \eta_A\left(\frac{\pi d}{\lambda}\right)^2
+\end{equation}
+Note that this also means we could define the effective area as a function of pointing angle, however generally we mean it to be at boresight.  Also, a lot of ``efficiencies'' are absorbed in the terms above, which I've left out of scope here.
+
+\section{Temperatures}
+This will present a very simple set of temperature definitions appropriate for HERA observations.  For a perfect and noiseless system, the power present at the antenna terminals from the sky for a pointing direction ($\theta, \phi$) in bandwidth $\Delta\nu$ is
+\begin{equation}
+W(\theta,\phi) = \frac{1}{2}A_e\int \int B(\theta^\prime,\phi^\prime)P(\theta^\prime-\theta,\phi^\prime-\phi)d\Omega^\prime \Delta \nu
+\end{equation}
+where $B(\theta,\phi)$ is the sky brightness.  
+Comparing this to the power from just a resistor at temperature $T$ ($w = kT\Delta\nu$) we can define an equivalent {\bf Antenna Temperature}, $T_A$ as
+\begin{equation}
+\label{Eq:TA}
+T_A =  \frac{A_e}{2k}\int \int B(\theta^\prime,\phi^\prime)P(\theta^\prime-\theta,\phi^\prime-\phi)d\Omega^\prime
+\end{equation}
+
+Of course, we don't have a perfect, noiseless receiver (still working on it), so that it also injects noise into the system.  We define that extra noise as the {\bf Receiver Temperature}, $T_R$.  Note that even though it is injected throughout the receiver, we pretend it is all injected at the antenna terminals as well (we call that the ``input-referred noise temperature'').  If we make sure to do that, the total power available at the antenna terminals (expressed as temperature) is the {\bf System Temperature}, which has components from the sky, the antenna and the receiver.  It is given by
+\begin{equation}
+T_{sys}(\nu) = \eta_R T_A(\nu) + (1-\eta_R)T_p + T_R(\nu) \approx T_A(\nu) + T_R(\nu)
+\end{equation}
+where $T_p$ is the physical temperature.
+Note that all of these quantities are functions of frequency, so I've added that dependency to remind us.
+
+The power that we record goes through the vagaries of being received (so amplified and noisified).  The power we record over a bandwidth $\Delta\nu$ is then
+\begin{equation}
+P = kG_{sys}T_{sys}\Delta\nu
+\end{equation}
+however, we {\em always} specify noise temperatures as input-referred.  So, if someone says ``the receiver temperature is 100 K'' and you are looking at blank sky, 
+the system temperature will be 
+\begin{equation}
+T_{sys} = 100 + T_{cmb} + T_{sp} + T_{atm} ~~~~~~K 
+\end{equation}
+where $T_{cmb}$=2.73 K, $T_{sp}$ is the ``spill-over'' temperature (from the part of the pattern {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that theoretically $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  We need to come up with a good estimate of $T_{sp}$ for PAPER and HERA.
+
+\section{Sensitivity Parameters}
+We define the {\bf Sensitivity} of an antenna, $\Gamma$, as
+\begin{equation}
+\Gamma = \frac{A_e}{2k}
+\end{equation}
+which we generally express in units of Kelvin per Jansky [K/Jy].  Therefore we can rewrite Eq. \ref{Eq:TA} as
+\begin{equation}
+T_A =  \Gamma \int \int B(\theta^\prime,\phi^\prime)P(\theta^\prime-\theta,\phi^\prime-\phi)d\Omega^\prime
+\end{equation}
+
+Another parameter used is the {\bf Source Equivalent Flux Density} ($SEFD$) which can be thought of in two different ways:
+\begin{enumerate}
+	\item it is the strength of a point source at boresight that would double the system temperature
+	\item it is the system temperature expressed in Jansky
+\end{enumerate}
+They both equivalently yield
+\begin{equation}
+SEFD = \frac{T_{sys}}{\Gamma} = \frac{2kT_{sys}}{A_e}
+\end{equation}
+
+Note that the SEFD ({\em i.e.} the ratio $A_e/T_{sys}$) is the ``native'' measurement made by an antenna.  Separating the two quantities requires additional information and is generally difficult to do very accurately. 
+
+\section{Polarization}
+Polarization complicates things.  For antenna work, we generally work in relative polarization and we measure/compute co-polar and cross-polar beam patterns.  These are either orthogonal linear (which we are denoting E and N) or circular polarizations (RH/LH).
+Although it is not how it is actually done, it is instructive to think of the antenna under test as fixed to looking at zenith and we run another transmitter antenna around on a great circle and measure what we get.
+
+For co-polar, 
+
+What else?
+
+\section{Matching}
+How it impacts Ae/Tsys...
+
+%\setcounter{table}{-1}
+%\begin{table}[H]
+%\centering
+%\caption{HERA-19 and posted beam pattern feed design}
+%\begin{tabular}{|l|r|} \hline
+%Height of feed backplane above the vertex & 4900 cm  \\ \hline
+%Diameter of backplane & 172 cm   \\ \hline
+%Height of mast  &  36 cm  \\ \hline
+%Height of cylinder sides & 36 cm \\ \hline
+%No gap between cylinder and backplane & No \\ \hline
+%\end{tabular}
+%\end{table}
+%
+%\section{Introduction}
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=0.65\textwidth]{hfssmodel.png}
+%\caption{HFSS model}
+%\label{fig:hfssmodel}
+%\end{figure}
+%
+%
+%\begin{thebibliography}{10}
+%\bibitem{Moore15}Moore, D. M., J. E. Aguirre, A. R. Parsons, Z. S. Ali, R. F. Bradley, C. L. Carilli, D. R. DeBoer, M. R. Dexter, N. E. Gugliucci, D. C. Jacobs, P. Klima, A. Liu, D. H. E. MacMahon, 
+%J. R. Manley, J. C. Pober, I. I. Stefan, W. P. Walbrugh, {\em New Limits on Polarized Power Spectra at 126 and 164 MHz: Relevance to Epoch of Reionization Measurements}, arXiv: 1502.05072v1, Feb. 2015
+
+
+%\clearpage
+%\newpage
+%\appendix
+%\section{Feed Parameters}
+%The 
+
+
+\end{document}
