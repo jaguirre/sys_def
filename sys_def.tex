@@ -150,12 +150,19 @@ The power that we record goes through the vagaries of being received (so amplifi
 \begin{equation}
 P = kG_{sys}T_{sys}\Delta\nu
 \end{equation}
-however, we {\em always} specify noise temperatures as input-referred.  So, if someone says ``the receiver temperature is 100 K'' and you are looking at blank sky, 
+however, we {\em always} specify noise temperatures as input-referred.  So, if someone says ``the receiver temperature is $T_R$'' 
 the system temperature will be 
 \begin{equation}
-T_{sys} = 100 + T_{cmb} + T_{sp} + T_{atm} ~~~~~~K 
+T_{sys} = T_{sky} + T_R + T_{sp} + T_{atm} ~~~~~~K 
 \end{equation}
-where $T_{cmb}$=2.73 K, $T_{sp}$ is the ``spill-over'' temperature (from the part of the pattern {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that theoretically $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  We need to come up with a good estimate of $T_{sp}$ for PAPER and HERA.
+where $T_{sky}$ is the integral for $T_A$ over the upper hemisphere, $T_{sp}$ is the ``spill-over'' temperature (integral over the lower hemisphere {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  We need to come up with a good estimate of $T_{sp}$ for PAPER and HERA.
+
+Note that if the sky is expressed in brightness temperature $T_B$, then
+\begin{equation}
+\label{Eq:TA}
+T_A =  \frac{1}{\Omega_A}\int \int T_B(\theta^\prime,\phi^\prime)P(\theta^\prime-\theta,\phi^\prime-\phi)d\Omega^\prime
+\end{equation}
+and, if we know the directivity ($D$) then $\Omega_A = 4\pi/D$.
 
 \section{Sensitivity Parameters}
 We define the {\bf Sensitivity} of an antenna, $\Gamma$, as
