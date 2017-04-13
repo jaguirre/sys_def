@@ -70,7 +70,7 @@
 
 \begin{document}
 \title{Some HERA System Definitions: I}
-\author{David DeBoer}
+\author{David DeBoer, Eloy de Lera Acedo}
 \maketitle
 
 \begin{center}
@@ -150,19 +150,12 @@ The power that we record goes through the vagaries of being received (so amplifi
 \begin{equation}
 P = kG_{sys}T_{sys}\Delta\nu
 \end{equation}
-however, we {\em always} specify noise temperatures as input-referred.  So, if someone says ``the receiver temperature is $T_R$'' 
+however, we {\em always} specify noise temperatures as input-referred.  So, if someone says ``the receiver temperature is 100 K'' and you are looking at blank sky, 
 the system temperature will be 
 \begin{equation}
-T_{sys} = T_{sky} + T_R + T_{sp} + T_{atm} ~~~~~~K 
+T_{sys} = 100 + T_{cmb} + T_{sp} + T_{atm} ~~~~~~K 
 \end{equation}
-where $T_{sky}$ is the integral for $T_A$ over the upper hemisphere, $T_{sp}$ is the ``spill-over'' temperature (integral over the lower hemisphere {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  We need to come up with a good estimate of $T_{sp}$ for PAPER and HERA.
-
-Note that if the sky is expressed in brightness temperature $T_B$, then
-\begin{equation}
-\label{Eq:TA}
-T_A =  \frac{1}{\Omega_A}\int \int T_B(\theta^\prime,\phi^\prime)P(\theta^\prime-\theta,\phi^\prime-\phi)d\Omega^\prime
-\end{equation}
-and, if we know the directivity ($D$) then $\Omega_A = 4\pi/D$.
+where $T_{cmb}$=2.73 K, $T_{sp}$ is the ``spill-over'' temperature (from the part of the pattern {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that theoretically $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  We need to come up with a good estimate of $T_{sp}$ for PAPER and HERA.
 
 \section{Sensitivity Parameters}
 We define the {\bf Sensitivity} of an antenna, $\Gamma$, as
@@ -195,7 +188,62 @@ For co-polar,
 What else?
 
 \section{Matching}
-How it impacts Ae/Tsys...
+The impedance matching between the antenna and the first stage LNA has a dominant effect in the passband response of the system. It both affects the passband gain of the LNA and therefore the smoothness of the passband (critical figure of merit for HERA) as well as the receiver noise, therefore impacting sensitivty, especially at higher frequencies where the sky noise term does not dominate.
+
+\subsection{Power matching}
+The {\bf Transducer Power Gain} of a LNA, $G_T$, is defined as the ratio of the power delivered to the load to the power available from the source.
+For maximum power transfer, the antenna impedance, $Z_A$, needs to match the complex conjugate of the LNA inout impedance, $Z_{in}$. A mismatch between these two is likely to be frequency dependent and it introduces spectral structure in the passband response of the pair {\em antenna+LNA}. This of course translates into a higher {\em antenna+LNA} transfer function in the Delay Spectrum at delays larger than 0. This is undesired for HERA.
+
+$G_T$ also depends on the {\em S-parameters} ($S_{11}$, $S_{12}$, $S_{21}$, $S_{22}$) of the LNA and the output load impedance, $Z_L$. However this is typically $50\Omega$ and the output mismatch in minimal.
+
+\begin{equation}
+G_{T}(\nu) =\frac{|S_{21}|^2(1-|\Gamma_A|^2)(1-|\Gamma_L|^2)}{|1-\Gamma_A\Gamma_{in}|^2|1-S_{22}\Gamma_{L}|^2}
+\end{equation}
+
+\begin{equation}
+Z_{in}(\nu) = Z_0\frac{1+\Gamma_{in}(\nu)}{1-\Gamma_{in}(\nu)}
+\end{equation}
+
+\begin{equation}
+Z_{A}(\nu) = Z_0\frac{1+\Gamma_{A}(\nu)}{1-\Gamma_{A}(\nu)}
+\end{equation}
+
+\begin{equation}
+Z_{L}(\nu) = Z_0\frac{1+\Gamma_{A}(\nu)}{1-\Gamma_{L}(\nu)}
+\end{equation}
+
+\subsection{Noise matching}
+In order to maximise the ratio $A_e/T_{sys}$ one needs to minimise the receiver temperature as shown by 
+
+\begin{equation}
+\frac{A_{e}(\nu)}{T_{sys}(\nu)} = \frac{A_{e}(\nu)}{\eta_R T_A(\nu) + (1-\eta_R)T_p + T_R(\nu)}
+\end{equation}
+
+The receiver temperature, $T_R$, can be calculated form the {\bf Receiver Noise Figure}, $F_R$, and the physical temperature, $T_p$ as
+
+\begin{equation}
+T_R(\nu) = T_p(F_R(\nu)-1)
+\end{equation}
+
+For a LNA $F_R$ is calculated as
+
+\begin{equation}
+F_R(\nu) = F_{min}(\nu)+\frac{R_n(\nu)}{G_A(\nu)}|Y_A(\nu)-Y_{opt}(\nu)|^2
+\end{equation}
+
+where $R_n$ is the noise resistance of the LNA and $F_{min}$ is the minimum noise figure. $Y_A$ is the antenna admittance and $Y_{opt}$ is the optimum noise admittance of the LNA. 
+
+\begin{equation}
+Z_A(\nu) = (Y_A(\nu))^{-1}= (G_A(\nu)+iB_A(\nu))^{-1}
+\end{equation}
+
+\begin{equation}
+Z_{opt}(\nu) = (Y_{opt}(\nu))^{-1}= (G_{opt}(\nu)+iB_{opt}(\nu))^{-1}
+\end{equation}
+
+Consequently, for minimum receiver temperature the antenna impedance, $Z_A$, needs to match the optimum noise impedance of the LNA, $Z_{opt}$. It is important to note here that the optimum noise impedance of the LNA, $Z_{opt}$, and the input impedance of the LNA, $Z_A$, are typically different and this imposes a trade-off in the design.
+
+{\em Here we have assumed that the receiver temperature is dominated by the noise temperature of the first LNA since in a cascade system losses and noise in later stages are weighted down by the gain of the amplifiers in front when referring it to the input of the system}. This means that adding losses to suppress reflections due to mismatch in later stages of the receiving chain hardly affect the $Ae/T_{sys}$ ratio if enough gain is provided.  
 
 %\setcounter{table}{-1}
 %\begin{table}[H]
