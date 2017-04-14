@@ -155,12 +155,12 @@ the system temperature will be
 \begin{equation}
 T_{sys} = 100 + T_{cmb} + T_{sp} + T_{atm} ~~~~~~K 
 \end{equation}
-where $T_{sky}$ is the integral for $T_A$ over the upper hemisphere, $T_{sp}$ is the ``spill-over'' temperature (integral over the lower hemisphere {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  See Fig \ref{Fig:Tspill} for the spillover temperature for HERA (using Nicolas' beam patterns but assuming half goes back onto the sky + an added 10 K guess for the missing middle) and PAPER.
+where $T_{sky}$ is the integral for $T_A$ over the upper hemisphere, $T_{sp}$ is the ``spill-over'' temperature (integral over the lower hemisphere {\em not} looking at the sky) and $T_{atm}$ is the radiometric temperature of the atmosphere.  Note that $T_{sp}$ and $T_{atm}$ are contained in the $T_A$ part, however it is convenient to have them separate to spare the poor astronomer from having to keep track of our (currently) life-sustaining planet.  $T_{atm}$ is generally negligible (impacted by the ionosphere at our frequencies).  See Fig. \ref{Fig:Tspill} for the spillover temperature for HERA (using Nicolas' beam patterns but assuming half goes back onto the sky + an added 10 K guess for the missing middle) and PAPER (using my somewhat quickly calculated HFSS model).
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.65\textwidth]{spillover.png}
-\caption{\small Estimate of the HERA spillover temperature.  Uses the Cavendish beams, but assumes half of that power goes back on the sky given all of the adjacent metal and adds in 10 K as an estimate of the contribution from the central hole.  This will go away if a central cone is used.}
+\caption{\small Estimate of the HERA and PAPER spillover temperatures.  Uses the Cavendish beams, but assumes half of that power goes back on the sky given all of the adjacent metal and adds in 10 K as an estimate of the contribution from the central hole.  This will go away if a central cone is used.  PAPER uses my quick HFSS-calculated beams.}
 \label{Fig:Tspill}
 \end{figure}
 
@@ -257,7 +257,18 @@ Z_{opt}(\nu) = (Y_{opt}(\nu))^{-1}= (G_{opt}(\nu)+iB_{opt}(\nu))^{-1}
 
 Consequently, for minimum receiver temperature the antenna impedance, $Z_A$, needs to match the optimum noise impedance of the LNA, $Z_{opt}$. It is important to note here that the optimum noise impedance of the LNA, $Z_{opt}$, and the input impedance of the LNA, $Z_A$, are typically different and this imposes a trade-off in the design.
 
-{\em Here we have assumed that the receiver temperature is dominated by the noise temperature of the first LNA since in a cascade system losses and noise in later stages are weighted down by the gain of the amplifiers in front when referring it to the input of the system}. This means that adding losses to suppress reflections due to mismatch in later stages of the receiving chain hardly affect the $Ae/T_{sys}$ ratio if enough gain is provided.  
+{\bf Trade-off between which power/noise matching in actual system...}
+
+\subsection{System Impact}
+If we define a mismatch efficiency as $\eta_m = 1-|\Gamma_{in}|^2$, then we can express 
+\begin{equation}
+A_e/T_{sys} = 
+\end{equation}
+
+{\em If we have assumed that the receiver temperature is dominated by the noise temperature of the first LNA since in a cascade system losses and noise in later stages are weighted down by the gain of the amplifiers in front when referring it to the input of the system}. This means that adding losses to suppress reflections due to mismatch in later stages of the receiving chain hardly affect the $Ae/T_{sys}$ ratio if enough gain is provided so
+\begin{equation}
+\frac{A_e}{T_{sys}} \approx \eta_m\frac{A_e}{T_{sys}}
+\end{equation}
 
 %\setcounter{table}{-1}
 %\begin{table}[H]
