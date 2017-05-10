@@ -206,9 +206,9 @@ The impedance matching between the antenna and the first stage LNA has a dominan
 
 \subsection{Power matching}
 The {\bf Transducer Power Gain} of a LNA, $G_T$, is defined as the ratio of the power delivered to the load to the power available from the source.
-For maximum power transfer, the antenna impedance, $Z_A$, needs to match the complex conjugate of the LNA input impedance, $Z_{in}$. A mismatch between these two is likely to be frequency dependent and it introduces spectral structure in the passband response of the pair {\em antenna+LNA}. This of course translates into a higher {\em antenna+LNA} transfer function in the Delay Spectrum at delays larger than 0. This is undesired for HERA.
+For maximum power transfer, the antenna impedance, $Z_A$, needs to match the complex conjugate of the LNA inout impedance, $Z_{in}$. A mismatch between these two is likely to be frequency dependent and it introduces spectral structure in the passband response of the pair {\em antenna+LNA}. This of course translates into a higher {\em antenna+LNA} transfer function in the Delay Spectrum at delays larger than 0. This is undesired for HERA.
 
-$G_T$ also depends on the {\em S-parameters} ($S_{11}$, $S_{12}$, $S_{21}$, $S_{22}$, assuming a {\em 2-port} amplifier) of the LNA and the output load impedance, $Z_L$. However this is typically $50\Omega$ and the output mismatch in minimal.
+$G_T$ also depends on the {\em S-parameters} ($S_{11}$, $S_{12}$, $S_{21}$, $S_{22}$) of the LNA and the output load impedance, $Z_L$. However this is typically $50\Omega$ and the output mismatch in minimal.
 
 \begin{equation}
 G_{T}(\nu) =\frac{|S_{21}|^2(1-|\Gamma_A|^2)(1-|\Gamma_L|^2)}{|1-\Gamma_A\Gamma_{in}|^2|1-S_{22}\Gamma_{L}|^2}
@@ -257,49 +257,17 @@ Z_{opt}(\nu) = (Y_{opt}(\nu))^{-1}= (G_{opt}(\nu)+iB_{opt}(\nu))^{-1}
 
 Consequently, for minimum receiver temperature the antenna impedance, $Z_A$, needs to match the optimum noise impedance of the LNA, $Z_{opt}$. It is important to note here that the optimum noise impedance of the LNA, $Z_{opt}$, and the input impedance of the LNA, $Z_A$, are typically different and this imposes a trade-off in the design.
 
-\subsection{Trade-off between power and noise matching in actual system}
-
-As described in \citep{Fagnoni16} the difference between power and noise match implies that one typically needs to compromise between a good power match (match of the antenna impedance to the input impedance of the LNA for a smooth passband for example) and a low receiver noise (match of the antenna impedance to the optimum noise impedance of the LNA). 
-
-Furthermore, attempts to introduce matching networks in between the antenna and the LNA to enhance either one or the other may result in further losses and therefore a lower system temperature as shown below. 
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.65\textwidth]{S11_balun.png}
-\caption{\small $S_{11}$ of the HERA balun with and without matching network.}
-\label{Fig:S11_balun}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.65\textwidth]{S21_MN.png}
-\caption{\small Losses in the proposed matching network.}
-\label{Fig:S11_MN}
-\end{figure}
+{\bf Trade-off between which power/noise matching in actual system...}
 
 \subsection{System Impact}
-If we define a {\em antenna-LNA} mismatch efficiency as $\eta_m = 1-|\Gamma_{m}|^2$, then we can express the ratio $A_e/T_{sys}$ before or after this ``loss'' in the receiving chain, therefore both signal and noise get multiplied by this efficiency and
-
+If we define a mismatch efficiency as $\eta_m = 1-|\Gamma_{in}|^2$, then we can express 
 \begin{equation}
-A_e(\nu)/T_{sys}(\nu) = (A_e(\nu)\eta_m(\nu))/(T_{sys}(\nu)\eta_m(\nu))
+A_e/T_{sys} = 
 \end{equation}
 
+{\em If we have assumed that the receiver temperature is dominated by the noise temperature of the first LNA since in a cascade system losses and noise in later stages are weighted down by the gain of the amplifiers in front when referring it to the input of the system}. This means that adding losses to suppress reflections due to mismatch in later stages of the receiving chain hardly affect the $Ae/T_{sys}$ ratio if enough gain is provided so
 \begin{equation}
-\Gamma_{m}(\nu) = \frac{Z_A(\nu)-Z_{in}(\nu)}{Z_A(\nu)+Z_{in}(\nu)} 
-\end{equation}
-
-It is worth noticing that in cascaded systems made of different stages connected in series (eg. stage 0 is the antenna, stage 1 is LNA, stage 2 is a filter, stage 3 is the cable, stage 4 is the PAM, etc.) the ratio $A_e/T_{sys}$ is constant independently of where in the system it gets calculated since both numerator and denominator (signal and noise) are weighted by the gains and losses of the system.
-
-Furthermore, in the $A_{e}/T_{sys}$ calculations above we have assumed that {\em the receiver temperature is dominated by the noise temperature of the first LNA since in a cascade system losses and noise in later stages are weighted down by the gain of the amplifiers in front when referring it to the input of the system}. This means that adding losses to suppress reflections due to mismatch in later stages of the receiving chain hardly affects the $Ae/T_{sys}$ ratio if enough gain is provided since
-
-\begin{equation}
-F_R = F_1 + \frac{F_2-1}{G_1}+\frac{F_3-1}{G_1G_2}+...+\frac{F_N-1}{G_1G_2...G_{N-1}}
-\end{equation}
-
-and for a passive device the noise figure, $F$, is equal to its attenuation, $L$ (inverse of the gain, $G$).
-
- \begin{equation}
-F = L = 1/G
+\frac{A_e}{T_{sys}} \approx \eta_m\frac{A_e}{T_{sys}}
 \end{equation}
 
 %\setcounter{table}{-1}
@@ -319,8 +287,9 @@ F = L = 1/G
 
 %
 %
-\begin{thebibliography}{10}
-\bibitem{Fagnoni16}N. Fagnoni, E. de Lera Acedo, {\em The Hydrogen Epoch of Reionization Array (HERA). Improvement of the antenna response with a matching network and scientific impacts}, arXiv:1606.08701v1, Sept. 2016.
+%\begin{thebibliography}{10}
+%\bibitem{Moore15}Moore, D. M., J. E. Aguirre, A. R. Parsons, Z. S. Ali, R. F. Bradley, C. L. Carilli, D. R. DeBoer, M. R. Dexter, N. E. Gugliucci, D. C. Jacobs, P. Klima, A. Liu, D. H. E. MacMahon, 
+%J. R. Manley, J. C. Pober, I. I. Stefan, W. P. Walbrugh, {\em New Limits on Polarized Power Spectra at 126 and 164 MHz: Relevance to Epoch of Reionization Measurements}, arXiv: 1502.05072v1, Feb. 2015
 
 
 %\clearpage
