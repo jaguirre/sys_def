@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage{natbib}
+%\usepackage{natbib}
 \usepackage{float}
 \usepackage[textwidth=6.5in,textheight=8.5in]{geometry}
 \usepackage{changepage}
@@ -193,13 +193,7 @@ SEFD = \frac{T_{sys}}{\Gamma} = \frac{2kT_{sys}}{A_e}
 
 Note that the SEFD ({\em i.e.} the ratio $A_e/T_{sys}$) is the ``native'' measurement made by an antenna.  Separating the two quantities requires additional information and is generally difficult to do very accurately. 
 
-\section{Polarization}
-Polarization complicates things.  For antenna work, we generally work in relative polarization and we measure/compute co-polar and cross-polar beam patterns.  These are either orthogonal linear (which we are denoting E and N) or circular polarizations (RH/LH).
-Although it is not how it is actually done, it is instructive to think of the antenna under test as fixed to looking at zenith and we run another transmitter antenna around on a great circle and measure what we get.
-
-For co-polar, 
-
-What else?
+\include{polarization}
 
 \section{Matching}
 The impedance matching between the antenna and the first stage LNA has a dominant effect in the passband response of the system. It both affects the passband gain of the LNA and therefore the smoothness of the passband (critical figure of merit for HERA) as well as the receiver noise, therefore impacting sensitivty, especially at higher frequencies where the sky noise term does not dominate.
@@ -259,7 +253,8 @@ Consequently, for minimum receiver temperature the antenna impedance, $Z_A$, nee
 
 \subsection{Trade-off between power and noise matching in actual system}
 
-As described in \citep{Fagnoni16} the difference between power and noise match implies that one typically needs to compromise between a good power match (match of the antenna impedance to the input impedance of the LNA for a smooth passband for example) and a low receiver noise (match of the antenna impedance to the optimum noise impedance of the LNA). 
+As described in Fagnoni 2016 %\cite{Fagnoni16} 
+the difference between power and noise match implies that one typically needs to compromise between a good power match (match of the antenna impedance to the input impedance of the LNA for a smooth passband for example) and a low receiver noise (match of the antenna impedance to the optimum noise impedance of the LNA). 
 
 Furthermore, attempts to introduce matching networks in between the antenna and the LNA to enhance either one or the other may result in further losses and therefore a lower system temperature as shown below. 
 
@@ -319,9 +314,9 @@ F = L = 1/G
 
 %
 %
-\begin{thebibliography}{10}
-\bibitem{Fagnoni16}N. Fagnoni, E. de Lera Acedo, {\em The Hydrogen Epoch of Reionization Array (HERA). Improvement of the antenna response with a matching network and scientific impacts}, arXiv:1606.08701v1, Sept. 2016.}
-
+%\begin{thebibliography}{10}
+%\bibitem{Fagnoni16}{N. Fagnoni, E. de Lera Acedo, {\em The Hydrogen Epoch of Reionization Array (HERA). Improvement of the antenna response with a matching network and scientific impacts}, arXiv:1606.08701v1, Sept. 2016.}
+%\end{thebibliography}
 
 %\clearpage
 %\newpage
