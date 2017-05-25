@@ -1,0 +1,15 @@
+*.tex.backup
+*.aux
+*.gz
+*.log
+*.blg
+*.out
+*.bbl
+*.fls
+*.DS_Store
+*.fdb_latexmk
+#*#
+*.bak
+*.*~
+~\$*
+Grades/*
